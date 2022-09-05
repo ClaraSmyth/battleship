@@ -26,6 +26,12 @@ const gameBoard = (arr) => {
                 return checkHit;
             });
         },
+
+        checkWin() {
+            return ships.every((currentShip) => {
+                return currentShip.isSunk();
+            });
+        },
     };
 };
 

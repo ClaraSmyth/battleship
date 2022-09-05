@@ -13,7 +13,7 @@ const ship = (length) => {
         },
 
         isSunk() {
-            return cells.every(cell => cell === true);
+            return cells.every((cell) => cell === true);
         },
     };
 };

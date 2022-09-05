@@ -2,7 +2,7 @@ import ship from './ship';
 
 const gameBoard = (arr) => {
     const ships = [];
-    // const missedAttacks = [];
+    const missedAttacks = [];
 
     arr.forEach((coord) => {
         const newShip = ship(coord.length);
@@ -11,11 +11,19 @@ const gameBoard = (arr) => {
     });
 
     return {
-        receiveAttack(coords) {
-            return ships.some((obj) => {
-                return obj.coords.some((coord) => {
-                    return coords.toString() === coord.toString();
+        receiveAttack(attackCoords) {
+            return ships.some((currentShip) => {
+                let currentIndex = null;
+
+                const checkHit = currentShip.coords.some((coord, index) => {
+                    currentIndex = index;
+                    return attackCoords.toString() === coord.toString();
                 });
+
+                if (checkHit) currentShip.hit(currentIndex);
+                if (!checkHit) missedAttacks.push(attackCoords);
+
+                return checkHit;
             });
         },
     };

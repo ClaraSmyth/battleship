@@ -15,6 +15,8 @@ const player = () => {
     const board = gameBoard(playerShips);
 
     return {
+        board,
+
         attack() {
             const attackCoords = [5, 3];
             board.receiveAttack(attackCoords);

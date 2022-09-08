@@ -1,4 +1,8 @@
 const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
 
 module.exports = {
     mode: 'development',
@@ -15,14 +19,31 @@ module.exports = {
         clean: true,
     },
     module: {
-        rules: [{
-            test: /\.js?$/,
-            exclude: /node_modules/,
-            use: {
-                loader: 'babel-loader',
+        rules: [
+            {
+                test: /\.js?$/,
+                exclude: /node_modules/,
+                use: {
+                    loader: 'babel-loader',
+                },
             },
-        }],
-      },
+            {
+            test: /\.scss$/,
+            use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader'],
+        
+            }
+        ],
+    },
+    plugins: [
+        new HtmlWebpackPlugin({
+            title: 'Battleship!',
+            filename: './index.html',
+            template: path.resolve(__dirname, './src/template.html'),
+        }),
+        new MiniCssExtractPlugin({
+            filename: './[name].[contenthash].css',
+        }),
+    ],
     optimization: {
         runtimeChunk: 'single',
     },

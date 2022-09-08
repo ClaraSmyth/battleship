@@ -17,9 +17,9 @@ const player = () => {
     return {
         board,
 
-        attack() {
+        attack(enemyBoard) {
             const attackCoords = [5, 3];
-            board.receiveAttack(attackCoords);
+            enemyBoard.receiveAttack(attackCoords);
         },
     };
 };

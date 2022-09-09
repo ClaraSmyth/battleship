@@ -1,0 +1,1 @@
+(()=>{"use strict";player(),player()})();

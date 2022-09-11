@@ -4,7 +4,8 @@ describe('Gameboard', () => {
     test('Gameboard factory returns an object with receiveAttack()', () => {
         expect(gameBoard([[[5, 2], [5, 3]]])).toStrictEqual({
             receiveAttack: expect.any(Function),
-            checkWin: expect.any(Function)
+            checkWin: expect.any(Function),
+            checkRemaining: expect.any(Function)
         })
     })
 
@@ -35,5 +36,14 @@ describe('Gameboard', () => {
         let board = gameBoard([[[5, 2], [5, 3]]])
 
         expect(board.checkWin()).toBe(false);
+    })
+
+    test('Gameboard checkRemaining() returns the remaining number of ships', () => {
+        let board = gameBoard([[[5, 2], [5, 3]], [[7, 2], [7, 3]]])
+
+        board.receiveAttack([5, 2])
+        board.receiveAttack([5, 3])
+
+        expect(board.checkRemaining()).toBe(1);
     })
 })

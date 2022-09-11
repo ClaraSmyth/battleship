@@ -1,16 +1,56 @@
 import gameBoard from './gameboard';
 
-const player = () => {
-    const playerShips = [
-        [
-            [5, 2],
-            [5, 3],
-        ],
-        [
-            [7, 2],
-            [7, 3],
-        ],
-    ];
+const randomCoords = (length) => {
+    const direction = Math.round(Math.random());
+    const coords = [];
+
+    if (direction) {
+        const x = Math.floor(Math.random() * (10 - length));
+        const y = Math.floor(Math.random() * 10);
+
+        for (let i = 0; i < length; i++) {
+            coords.push([x + i, y]);
+        }
+    }
+
+    if (!direction) {
+        const x = Math.floor(Math.random() * 10);
+        const y = Math.floor(Math.random() * (10 - length));
+
+        for (let i = 0; i < length; i++) {
+            coords.push([x, y + i]);
+        }
+    }
+
+    return coords;
+};
+
+const randomShips = () => {
+    const shipArr = [randomCoords(5)];
+
+    while (shipArr.length < 5) {
+        const newCoords = randomCoords(5 - shipArr.length);
+
+        const unique = newCoords.some((newCoord) => {
+            return shipArr.some((ship) => {
+                return ship.some((shipCoords) => {
+                    return shipCoords.toString() === newCoord.toString();
+                });
+            });
+        });
+
+        if (unique) shipArr.push(newCoords);
+    }
+
+    return shipArr;
+};
+
+const player = (shipArr = []) => {
+    const playerShips = shipArr;
+
+    if (!playerShips.length) {
+        playerShips.push(randomShips());
+    }
 
     const board = gameBoard(playerShips);
 

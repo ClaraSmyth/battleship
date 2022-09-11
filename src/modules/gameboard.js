@@ -32,6 +32,16 @@ const gameBoard = (arr) => {
                 return currentShip.isSunk();
             });
         },
+
+        checkRemaining() {
+            let count = ships.length;
+
+            ships.forEach((currentShip) => {
+                if (currentShip.isSunk()) count -= 1;
+            });
+
+            return count;
+        },
     };
 };
 

@@ -49,7 +49,7 @@ const player = (shipArr = []) => {
     const playerShips = shipArr;
 
     if (!playerShips.length) {
-        playerShips.push(randomShips());
+        playerShips.push(...randomShips());
     }
 
     const board = gameBoard(playerShips);

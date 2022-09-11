@@ -2,7 +2,7 @@ import player from "../modules/player";
 
 describe('Player', () => {
     test('Player factory returns an object with board and attack()', () => {
-        expect(player([[[5, 2], [5, 3]], [[7, 2], [7, 3]]])).toStrictEqual({
+        expect(player()).toStrictEqual({
             board: expect.any(Object),
             attack: expect.any(Function),
         });
@@ -18,5 +18,11 @@ describe('Player', () => {
         playerOne.attack(playerTwo.board, [7, 3])
 
         expect(playerTwo.board.checkWin()).toBe(true);
+    })
+
+    test('Player factory should contain 5 random ships when not given any array', () => {
+        const playerOne = player();
+
+        expect(playerOne.board.checkRemaining()).toBe(5)
     })
 })

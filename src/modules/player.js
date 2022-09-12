@@ -32,8 +32,8 @@ const randomShips = () => {
         const newCoords = randomCoords(5 - shipArr.length);
 
         const unique = newCoords.every((newCoord) => {
-            return shipArr.some((ship) => {
-                return ship.some((shipCoords) => {
+            return shipArr.every((ship) => {
+                return ship.every((shipCoords) => {
                     return shipCoords.toString() !== newCoord.toString();
                 });
             });
@@ -45,7 +45,7 @@ const randomShips = () => {
     return shipArr;
 };
 
-const player = (shipArr = []) => {
+const player = (name = 'AI', shipArr = []) => {
     const playerShips = shipArr;
 
     if (!playerShips.length) {
@@ -56,9 +56,10 @@ const player = (shipArr = []) => {
 
     return {
         board,
+        name,
 
         attack(enemyBoard, attackCoords) {
-            enemyBoard.receiveAttack(attackCoords);
+            return enemyBoard.receiveAttack(attackCoords);
         },
     };
 };

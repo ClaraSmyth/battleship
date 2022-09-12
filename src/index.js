@@ -1,8 +1,4 @@
 import './styles/styles.scss';
-
-const gameLoop = () => {
-    const playerOne = player();
-    const playerTwo = player();
-};
+import gameLoop from './modules/gameloop';
 
 gameLoop();

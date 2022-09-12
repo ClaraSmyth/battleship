@@ -3,6 +3,7 @@ import gameBoard from "../modules/gameboard";
 describe('Gameboard', () => {
     test('Gameboard factory returns an object with receiveAttack()', () => {
         expect(gameBoard([[[5, 2], [5, 3]]])).toStrictEqual({
+            availableAttacks: expect.any(Array),
             receiveAttack: expect.any(Function),
             checkWin: expect.any(Function),
             checkRemaining: expect.any(Function)

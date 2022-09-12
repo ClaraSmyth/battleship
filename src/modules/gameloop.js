@@ -1,11 +1,8 @@
 import player from './player';
 
 const gameLoop = () => {
-    const playerOne = player('Clara');
-    const playerTwo = player();
-
-    let currentPlayer = playerOne;
-    let currentEnemy = playerTwo;
+    let currentPlayer = player('Clara');
+    let currentEnemy = player();
 
     let gameOver = false;
     let winner = null;
@@ -19,7 +16,6 @@ const gameLoop = () => {
         winner = gameOver ? currentPlayer.name : null;
 
         const nextPlayer = currentEnemy;
-
         currentEnemy = currentPlayer;
         currentPlayer = nextPlayer;
     }

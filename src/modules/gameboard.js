@@ -3,6 +3,7 @@ import ship from './ship';
 const gameBoard = (arr) => {
     const ships = [];
     const missedAttacks = [];
+    const availableAttacks = [];
 
     arr.forEach((coord) => {
         const newShip = ship(coord.length);
@@ -10,8 +11,19 @@ const gameBoard = (arr) => {
         ships.push(newShip);
     });
 
+    for (let i = 0; i < 10; i++) {
+        for (let j = 0; j < 10; j++) {
+            availableAttacks.push([i, j]);
+        }
+    }
+
     return {
+        availableAttacks,
+
         receiveAttack(attackCoords) {
+            const attackIndex = availableAttacks.indexOf(attackCoords);
+            availableAttacks.splice(attackIndex, 1);
+
             return ships.some((currentShip) => {
                 let currentIndex = null;
 

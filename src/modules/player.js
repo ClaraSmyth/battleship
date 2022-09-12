@@ -31,10 +31,10 @@ const randomShips = () => {
     while (shipArr.length < 5) {
         const newCoords = randomCoords(5 - shipArr.length);
 
-        const unique = newCoords.some((newCoord) => {
+        const unique = newCoords.every((newCoord) => {
             return shipArr.some((ship) => {
                 return ship.some((shipCoords) => {
-                    return shipCoords.toString() === newCoord.toString();
+                    return shipCoords.toString() !== newCoord.toString();
                 });
             });
         });

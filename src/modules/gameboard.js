@@ -21,7 +21,7 @@ const gameBoard = (arr) => {
         availableAttacks,
 
         receiveAttack(attackCoords) {
-            const attackIndex = availableAttacks.indexOf(attackCoords);
+            const attackIndex = availableAttacks.findIndex((elem) => elem.toString() === attackCoords.toString());
             availableAttacks.splice(attackIndex, 1);
 
             return ships.some((currentShip) => {

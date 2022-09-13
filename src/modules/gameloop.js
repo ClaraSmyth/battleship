@@ -22,6 +22,12 @@ const gameLoop = () => {
 
     return {
         takeTurn(coords) {
+            const checkCoords = currentEnemy.board.availableAttacks.some(
+                (elem) => elem.toString() === coords.toString()
+            );
+
+            if (!checkCoords) return;
+
             currentPlayer.attack(currentEnemy.board, coords);
             gameOver = currentEnemy.board.checkWin();
             winner = gameOver ? currentPlayer.name : null;

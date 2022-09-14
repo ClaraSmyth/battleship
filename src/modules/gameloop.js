@@ -5,7 +5,12 @@ const gameLoop = () => {
     let currentEnemy = player();
 
     let gameOver = false;
-    let winner = null;
+
+    const updatedPlayer = () => {
+        const nextPlayer = currentEnemy;
+        currentEnemy = currentPlayer;
+        currentPlayer = nextPlayer;
+    };
 
     const aiTurn = () => {
         const randomIndex = Math.floor(Math.random() * currentEnemy.board.availableAttacks.length);
@@ -13,11 +18,8 @@ const gameLoop = () => {
 
         currentPlayer.attack(currentEnemy.board, randomCoords);
         gameOver = currentEnemy.board.checkWin();
-        winner = gameOver ? currentPlayer.name : null;
 
-        const nextPlayer = currentEnemy;
-        currentEnemy = currentPlayer;
-        currentPlayer = nextPlayer;
+        updatedPlayer();
     };
 
     return {
@@ -30,12 +32,8 @@ const gameLoop = () => {
 
             currentPlayer.attack(currentEnemy.board, coords);
             gameOver = currentEnemy.board.checkWin();
-            winner = gameOver ? currentPlayer.name : null;
 
-            const nextPlayer = currentEnemy;
-            currentEnemy = currentPlayer;
-            currentPlayer = nextPlayer;
-
+            updatedPlayer();
             aiTurn();
         },
     };

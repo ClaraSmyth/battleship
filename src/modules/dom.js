@@ -21,7 +21,11 @@ const boardController = (gameloop) => {
 
     boardTwo.addEventListener('click', (e) => {
         const coords = e.target.dataset.coords.split(',').map(Number);
-        gameloop.takeTurn(coords);
+        const turn = gameloop.takeTurn(coords);
+
+        if (turn) {
+            console.log(e.target);
+        }
     });
 };
 

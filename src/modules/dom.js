@@ -28,4 +28,20 @@ const boardController = (gameloop) => {
     });
 };
 
-export { buildBoards, boardController };
+const updateBoard = (coords, attack, player) => {
+    const boardOne = document.querySelector('.board-one');
+    const boardTwo = document.querySelector('.board-two');
+
+    const board = player ? boardTwo : boardOne;
+
+    for (let i = 0; i < board.childNodes.length; i++) {
+        const node = board.childNodes[i];
+
+        if (node.dataset.coords === coords.toString()) {
+            node.classList.add(attack ? 'hit' : 'miss');
+            break;
+        }
+    }
+};
+
+export { buildBoards, boardController, updateBoard };

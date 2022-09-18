@@ -1,3 +1,4 @@
+import { updateBoard } from './dom';
 import player from './player';
 
 const gameLoop = () => {
@@ -16,9 +17,10 @@ const gameLoop = () => {
         const randomIndex = Math.floor(Math.random() * currentEnemy.board.availableAttacks.length);
         const randomCoords = currentEnemy.board.availableAttacks[randomIndex];
 
-        currentPlayer.attack(currentEnemy.board, randomCoords);
+        const attack = currentPlayer.attack(currentEnemy.board, randomCoords);
         gameOver = currentEnemy.board.checkWin();
 
+        updateBoard(randomCoords, attack, false);
         updatedPlayer();
     };
 
@@ -30,9 +32,10 @@ const gameLoop = () => {
 
             if (!checkCoords) return;
 
-            currentPlayer.attack(currentEnemy.board, coords);
+            const attack = currentPlayer.attack(currentEnemy.board, coords);
             gameOver = currentEnemy.board.checkWin();
 
+            updateBoard(coords, attack, true);
             updatedPlayer();
             aiTurn();
         },

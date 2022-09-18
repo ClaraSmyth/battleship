@@ -8,7 +8,10 @@ const buildBoards = () => {
             const div2 = document.createElement('div');
 
             div.setAttribute('data-coords', `${i},${j}`);
+            div.classList.add('board-cell');
+
             div2.setAttribute('data-coords', `${i},${j}`);
+            div2.classList.add('board-cell');
 
             boardOne.append(div);
             boardTwo.append(div2);
@@ -21,11 +24,7 @@ const boardController = (gameloop) => {
 
     boardTwo.addEventListener('click', (e) => {
         const coords = e.target.dataset.coords.split(',').map(Number);
-        const turn = gameloop.takeTurn(coords);
-
-        if (turn) {
-            console.log(e.target);
-        }
+        gameloop.takeTurn(coords);
     });
 };
 

@@ -67,6 +67,16 @@ body {
     }
 }
 
+.board-cell {
+    &.hit {
+        background-color: red;
+    }
+
+    &.miss {
+        background-color: black;
+    }
+}
+
 /////////////////////////////////
 ///       FOOTER SECTION
 /////////////////////////////////

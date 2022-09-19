@@ -55,6 +55,7 @@ const player = (name = 'AI', shipArr = []) => {
     const board = gameBoard(playerShips);
 
     return {
+        playerShips,
         board,
         name,
 

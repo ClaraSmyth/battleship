@@ -1,4 +1,4 @@
-import { updateBoard } from './dom';
+import { showPlayerShips, updateBoard } from './dom';
 import player from './player';
 
 const gameLoop = () => {
@@ -6,6 +6,8 @@ const gameLoop = () => {
     let currentEnemy = player();
 
     let gameOver = false;
+
+    showPlayerShips(currentPlayer.playerShips);
 
     const updatedPlayer = () => {
         const nextPlayer = currentEnemy;

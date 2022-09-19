@@ -51,6 +51,12 @@ body {
     padding: 1rem 0;
 }
 
+.board-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 .board-one,
 .board-two {
     display: grid;
@@ -60,14 +66,12 @@ body {
     aspect-ratio: 1;
     background-color: hsl(0 0% 100% / 0.2);
     margin: 1rem;
-    outline: 2px solid black;
-
-    & div {
-        outline: 1px solid black;
-    }
+    outline: 1px solid black;
 }
 
 .board-cell {
+    border: 1px solid black;
+
     &.hit {
         background-color: red;
     }

@@ -72,6 +72,10 @@ body {
 .board-cell {
     border: 1px solid black;
 
+    &.friendly {
+        background-color: green;
+    }
+
     &.hit {
         background-color: red;
     }

@@ -54,6 +54,12 @@ const gameBoard = (arr) => {
 
             return count;
         },
+
+        checkSunk() {
+            return ships.filter((currentShip) => {
+                return currentShip.isSunk();
+            });
+        },
     };
 };
 

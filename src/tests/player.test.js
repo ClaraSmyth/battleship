@@ -2,7 +2,7 @@ import player from "../modules/player";
 
 describe('Player', () => {
     test('Player factory returns an object with board and attack()', () => {
-        expect(player()).toStrictEqual({
+        expect(player('Name')).toStrictEqual({
             playerShips: expect.any(Array),
             board: expect.any(Object),
             name: expect.any(String),

@@ -80,6 +80,10 @@ body {
         background-color: red;
     }
 
+    &.sunk {
+        background-color: blue;
+    }
+
     &.miss {
         background-color: black;
     }

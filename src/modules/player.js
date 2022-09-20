@@ -45,7 +45,7 @@ const randomShips = () => {
     return shipArr;
 };
 
-const player = (name = 'AI', shipArr = []) => {
+const player = (name = null, shipArr = []) => {
     const playerShips = shipArr;
 
     if (!playerShips.length) {

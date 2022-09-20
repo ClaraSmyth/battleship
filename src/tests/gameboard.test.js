@@ -6,7 +6,8 @@ describe('Gameboard', () => {
             availableAttacks: expect.any(Array),
             receiveAttack: expect.any(Function),
             checkWin: expect.any(Function),
-            checkRemaining: expect.any(Function)
+            checkRemaining: expect.any(Function),
+            checkSunk: expect.any(Function),
         })
     })
 
@@ -46,5 +47,14 @@ describe('Gameboard', () => {
         board.receiveAttack([5, 3])
 
         expect(board.checkRemaining()).toBe(1);
+    })
+
+    test('Gameboard checkSunk() returns the sunk ships', () => {
+        let board = gameBoard([[[5, 2], [5, 3]], [[7, 2], [7, 3]]])
+
+        board.receiveAttack([5, 2])
+        board.receiveAttack([5, 3])
+
+        expect(board.checkSunk()).toStrictEqual(expect.any(Array))
     })
 })

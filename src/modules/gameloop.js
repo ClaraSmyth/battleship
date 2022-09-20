@@ -1,13 +1,18 @@
-import { showPlayerShips, updateBoard } from './dom';
+import { buildBoards, showPlayerShips, updateBoard } from './dom';
 import player from './player';
 
 const gameLoop = () => {
     let currentPlayer = player('Clara');
     let currentEnemy = player();
 
-    let gameOver = false;
-
     showPlayerShips(currentPlayer.playerShips);
+
+    const gameOver = () => {
+        currentPlayer = currentPlayer.name ? player(`${currentPlayer.name}`) : player();
+        currentEnemy = currentPlayer.name ? player() : player(`${currentPlayer.name}`);
+        buildBoards();
+        showPlayerShips(currentPlayer.playerShips);
+    };
 
     const updatePlayer = () => {
         const nextPlayer = currentEnemy;
@@ -20,9 +25,13 @@ const gameLoop = () => {
         const randomCoords = currentEnemy.board.availableAttacks[randomIndex];
 
         const attack = currentPlayer.attack(currentEnemy.board, randomCoords);
-        gameOver = currentEnemy.board.checkWin();
 
         updateBoard(randomCoords, attack, currentPlayer, currentEnemy);
+
+        if (currentEnemy.board.checkWin()) {
+            gameOver();
+            return;
+        }
 
         if (!attack) updatePlayer();
         if (attack) aiTurn();
@@ -37,9 +46,13 @@ const gameLoop = () => {
             if (!checkCoords) return;
 
             const attack = currentPlayer.attack(currentEnemy.board, coords);
-            gameOver = currentEnemy.board.checkWin();
 
             updateBoard(coords, attack, currentPlayer, currentEnemy);
+
+            if (currentEnemy.board.checkWin()) {
+                gameOver();
+                return;
+            }
 
             if (!attack) {
                 updatePlayer();

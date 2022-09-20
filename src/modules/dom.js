@@ -2,6 +2,9 @@ const buildBoards = () => {
     const boardOne = document.querySelector('.board-one');
     const boardTwo = document.querySelector('.board-two');
 
+    boardOne.textContent = '';
+    boardTwo.textContent = '';
+
     for (let i = 9; i >= 0; i--) {
         for (let j = 0; j <= 9; j++) {
             const div = document.createElement('div');

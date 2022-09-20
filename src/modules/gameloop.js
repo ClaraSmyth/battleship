@@ -8,8 +8,8 @@ const gameLoop = () => {
     showPlayerShips(currentPlayer.playerShips);
 
     const gameOver = () => {
-        currentPlayer = currentPlayer.name ? player(`${currentPlayer.name}`) : player();
-        currentEnemy = currentPlayer.name ? player() : player(`${currentPlayer.name}`);
+        currentPlayer = currentPlayer.name ? player(`${currentPlayer.name}`) : player(`${currentEnemy.name}`);
+        currentEnemy = player();
         buildBoards();
         showPlayerShips(currentPlayer.playerShips);
     };

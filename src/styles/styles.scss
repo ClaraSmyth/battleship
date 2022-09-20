@@ -5,6 +5,7 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    align-items: center;
     font-family: 'Patua One', cursive;
     background-repeat: no-repeat;
     background-attachment: fixed;
@@ -47,6 +48,7 @@ body {
     justify-content: space-around;
     align-items: center;
     flex-wrap: wrap;
+    max-width: 75rem;
     width: 100%;
     padding: 1rem 0;
 }
@@ -88,7 +90,7 @@ body {
     }
 
     &.sunk {
-        background-color: blue;
+        background-color: red;
     }
 
     &.miss::before {

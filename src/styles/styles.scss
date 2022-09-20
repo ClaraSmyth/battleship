@@ -70,13 +70,20 @@ body {
 }
 
 .board-cell {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     border: 1px solid black;
 
     &.friendly {
         background-color: green;
     }
 
-    &.hit {
+    &.hit::before {
+        content: '';
+        width: 50%;
+        height: 50%;
+        border-radius: 100vmax;
         background-color: red;
     }
 
@@ -84,7 +91,11 @@ body {
         background-color: blue;
     }
 
-    &.miss {
+    &.miss::before {
+        content: '';
+        width: 50%;
+        height: 50%;
+        border-radius: 100vmax;
         background-color: black;
     }
 }

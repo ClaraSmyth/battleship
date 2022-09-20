@@ -9,7 +9,7 @@ const gameLoop = () => {
 
     showPlayerShips(currentPlayer.playerShips);
 
-    const updatedPlayer = () => {
+    const updatePlayer = () => {
         const nextPlayer = currentEnemy;
         currentEnemy = currentPlayer;
         currentPlayer = nextPlayer;
@@ -22,8 +22,10 @@ const gameLoop = () => {
         const attack = currentPlayer.attack(currentEnemy.board, randomCoords);
         gameOver = currentEnemy.board.checkWin();
 
-        updateBoard(randomCoords, attack, false);
-        updatedPlayer();
+        updateBoard(randomCoords, attack, currentPlayer, currentEnemy);
+
+        if (!attack) updatePlayer();
+        if (attack) aiTurn();
     };
 
     return {
@@ -37,9 +39,12 @@ const gameLoop = () => {
             const attack = currentPlayer.attack(currentEnemy.board, coords);
             gameOver = currentEnemy.board.checkWin();
 
-            updateBoard(coords, attack, true);
-            updatedPlayer();
-            aiTurn();
+            updateBoard(coords, attack, currentPlayer, currentEnemy);
+
+            if (!attack) {
+                updatePlayer();
+                aiTurn();
+            }
         },
     };
 };

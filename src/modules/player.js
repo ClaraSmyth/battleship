@@ -1,12 +1,8 @@
 import gameBoard from './gameboard';
 import randomShips from './randomShips';
 
-const player = (name = null, shipArr = []) => {
-    const playerShips = shipArr;
-
-    if (!playerShips.length) {
-        playerShips.push(...randomShips());
-    }
+const player = (name = null, shipArr = null) => {
+    const playerShips = shipArr || randomShips();
 
     const board = gameBoard(playerShips);
 

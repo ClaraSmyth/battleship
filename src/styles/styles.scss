@@ -1,11 +1,26 @@
 @use '_reset';
 @import url('https://fonts.googleapis.com/css2?family=Patua+One&display=swap');
 
+:root {
+    --fs-300: 0.9rem;
+    --fs-400: 1rem;
+    --fs-600: 1.2rem;
+    --fs-700: 1.5rem;
+
+    --fc-primary: hsl(0 0% 0% / 1);
+
+    --clr-ship-miss: hsl(0 0% 0% / 1);
+    --clr-ship-hit: hsl(0 100% 75% / 1);
+    --clr-ship-sunk: hsl(0 100% 75% / 1);
+    --clr-ship-friendly: hsl(120 100% 25% / 1);
+}
+
 body {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
+    color: var(--fc-primary);
     font-family: 'Patua One', cursive;
     background-repeat: no-repeat;
     background-attachment: fixed;
@@ -78,7 +93,7 @@ body {
     border: 1px solid black;
 
     &.friendly {
-        background-color: green;
+        background-color: var(--clr-ship-friendly);
     }
 
     &.hit::before {
@@ -86,11 +101,11 @@ body {
         width: 50%;
         height: 50%;
         border-radius: 100vmax;
-        background-color: red;
+        background-color: var(--clr-ship-hit);
     }
 
     &.sunk {
-        background-color: red;
+        background-color: var(--clr-ship-sunk);
     }
 
     &.miss::before {
@@ -98,8 +113,18 @@ body {
         width: 50%;
         height: 50%;
         border-radius: 100vmax;
-        background-color: black;
+        background-color: var(--clr-ship-miss);
     }
+}
+
+/////////////////////////////////
+///       MODAL SECTION
+/////////////////////////////////
+
+.modal {
+    position: absolute;
+    inset: 0;
+    background-color: hsl(0 0% 0% / 0.3);
 }
 
 /////////////////////////////////

@@ -124,7 +124,39 @@ body {
 .modal {
     position: absolute;
     inset: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     background-color: hsl(0 0% 0% / 0.3);
+}
+
+.modal-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    padding: 2rem;
+    background-color: white;
+}
+
+.modal-board {
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    grid-template-rows: repeat(10, 1fr);
+    width: 22rem;
+    aspect-ratio: 1;
+    background-color: hsl(0 0% 100% / 0.2);
+    outline: 1px solid black;
+
+    &-cell {
+        border: 1px solid black;
+    }
+
+    &-ship {
+        width: 100%;
+        aspect-ratio: 1;
+        background-color: var(--clr-ship-friendly);
+    }
 }
 
 /////////////////////////////////

@@ -1,3 +1,5 @@
+import randomShips from './randomShips';
+
 const buildBoards = () => {
     const boardOne = document.querySelector('.board-one');
     const boardTwo = document.querySelector('.board-two');
@@ -81,4 +83,36 @@ const showPlayerShips = (playerShips) => {
     });
 };
 
-export { buildBoards, boardController, updateBoard, showPlayerShips };
+const startGameModal = () => {
+    const board = document.querySelector('.modal-board');
+
+    for (let i = 9; i >= 0; i--) {
+        for (let j = 0; j <= 9; j++) {
+            const div = document.createElement('div');
+
+            div.setAttribute('data-coords', `${i},${j}`);
+            div.classList.add('modal-board-cell');
+
+            board.append(div);
+        }
+    }
+
+    const ships = randomShips();
+
+    ships.forEach((ship) => {
+        const coords = ship[0];
+
+        for (let i = 0; i < board.childNodes.length; i++) {
+            const node = board.childNodes[i];
+
+            if (node.dataset.coords === coords.toString()) {
+                const div = document.createElement('div');
+                div.classList.add('modal-board-ship');
+                node.append(div);
+                break;
+            }
+        }
+    });
+};
+
+export { buildBoards, boardController, updateBoard, showPlayerShips, startGameModal };

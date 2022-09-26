@@ -102,12 +102,18 @@ const startGameModal = () => {
     ships.forEach((ship) => {
         const coords = ship[0];
 
+        let isVert = false;
+        if (ship.length > 1) isVert = ship[0][0] !== ship[1][0];
+
+        const rotation = isVert ? 'vert' : 'hor';
+
         for (let i = 0; i < board.childNodes.length; i++) {
             const node = board.childNodes[i];
 
             if (node.dataset.coords === coords.toString()) {
                 const div = document.createElement('div');
                 div.classList.add('modal-board-ship');
+                div.classList.add(`${rotation}-${ship.length}`);
                 node.append(div);
                 break;
             }

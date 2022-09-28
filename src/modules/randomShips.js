@@ -7,7 +7,7 @@ const randomCoords = (length) => {
         const y = Math.floor(Math.random() * 10);
 
         for (let i = 0; i < length; i++) {
-            coords.push([x + i, y]);
+            coords.unshift([x + i, y]);
         }
     }
 

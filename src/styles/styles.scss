@@ -197,22 +197,22 @@ body {
         // VERTICAL SHIPS
 
         &.vert-2::after {
-            top: calc(-100% - 2px);
+            bottom: calc(-100% - 2px);
             height: calc(100% + 2px);
         }
 
         &.vert-3::after {
-            top: calc(-200% - 4px);
+            bottom: calc(-200% - 4px);
             height: calc(200% + 4px);
         }
 
         &.vert-4::after {
-            top: calc(-300% - 6px);
+            bottom: calc(-300% - 6px);
             height: calc(300% + 6px);
         }
 
         &.vert-5::after {
-            top: calc(-400% - 8px);
+            bottom: calc(-400% - 8px);
             height: calc(400% + 8px);
         }
     }

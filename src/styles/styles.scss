@@ -218,7 +218,13 @@ body {
     }
 }
 
-.modal-inputs {
+.modal-buttons {
+    display: flex;
+    justify-content: space-around;
+    gap: 1rem;
+}
+
+.modal-form {
     display: flex;
     flex-direction: column;
     align-items: center;

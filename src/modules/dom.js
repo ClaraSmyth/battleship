@@ -1,3 +1,5 @@
+// eslint-disable-next-line import/no-cycle
+import gameLoop from './gameloop';
 import randomShips from './randomShips';
 
 const buildBoards = () => {
@@ -85,6 +87,7 @@ const showPlayerShips = (playerShips) => {
 
 const startGameModal = () => {
     const board = document.querySelector('.modal-board');
+    const form = document.querySelector('.modal-form');
 
     for (let i = 9; i >= 0; i--) {
         for (let j = 0; j <= 9; j++) {
@@ -114,10 +117,25 @@ const startGameModal = () => {
                 const div = document.createElement('div');
                 div.classList.add('modal-board-ship');
                 div.classList.add(`${rotation}-${ship.length}`);
+
+                div.addEventListener('click', () => {
+                    console.log(ship);
+                });
+
                 node.append(div);
                 break;
             }
         }
+    });
+
+    form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const nameInput = document.querySelector('.modal-name-input');
+        const name = document.querySelector('.board-one-title');
+
+        name.innerText = nameInput.value;
+        const newGame = gameLoop(nameInput.value, ships);
+        boardController(newGame);
     });
 };
 

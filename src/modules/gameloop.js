@@ -1,8 +1,9 @@
+// eslint-disable-next-line import/no-cycle
 import { buildBoards, showPlayerShips, updateBoard } from './dom';
 import player from './player';
 
-const gameLoop = () => {
-    let currentPlayer = player('Clara');
+const gameLoop = (name = null, shipArr = null) => {
+    let currentPlayer = player(name, shipArr);
     let currentEnemy = player();
 
     showPlayerShips(currentPlayer.playerShips);

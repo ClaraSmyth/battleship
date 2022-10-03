@@ -85,10 +85,8 @@ const showPlayerShips = (playerShips) => {
     });
 };
 
-const startGameModal = () => {
-    const board = document.querySelector('.modal-board');
-    const form = document.querySelector('.modal-form');
-
+const buildModalBoard = (board, ships) => {
+    // Builds the board cells
     for (let i = 9; i >= 0; i--) {
         for (let j = 0; j <= 9; j++) {
             const div = document.createElement('div');
@@ -100,8 +98,7 @@ const startGameModal = () => {
         }
     }
 
-    const ships = randomShips();
-
+    // Places the ships on the board
     ships.forEach((ship) => {
         const coords = ship[0];
 
@@ -127,7 +124,17 @@ const startGameModal = () => {
             }
         }
     });
+};
 
+const startGameModal = () => {
+    const board = document.querySelector('.modal-board');
+    const form = document.querySelector('.modal-form');
+    const randomButton = document.querySelector('.modal-random');
+    let ships = randomShips();
+
+    buildModalBoard(board, ships);
+
+    // Starts the game on submit
     form.addEventListener('submit', (e) => {
         e.preventDefault();
         const nameInput = document.querySelector('.modal-name-input');
@@ -136,6 +143,13 @@ const startGameModal = () => {
         name.innerText = nameInput.value;
         const newGame = gameLoop(nameInput.value, ships);
         boardController(newGame);
+    });
+
+    // Randomises the ships on board
+    randomButton.addEventListener('click', () => {
+        ships = randomShips();
+        board.textContent = '';
+        buildModalBoard(board, ships);
     });
 };
 

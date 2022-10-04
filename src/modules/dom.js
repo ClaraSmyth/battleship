@@ -130,6 +130,7 @@ const startGameModal = () => {
     const board = document.querySelector('.modal-board');
     const form = document.querySelector('.modal-form');
     const randomButton = document.querySelector('.modal-random');
+
     let ships = randomShips();
 
     buildModalBoard(board, ships);
@@ -139,6 +140,9 @@ const startGameModal = () => {
         e.preventDefault();
         const nameInput = document.querySelector('.modal-name-input');
         const name = document.querySelector('.board-one-title');
+        const modal = document.querySelector('.modal');
+
+        modal.classList.add('display-none');
 
         name.innerText = nameInput.value;
         const newGame = gameLoop(nameInput.value, ships);

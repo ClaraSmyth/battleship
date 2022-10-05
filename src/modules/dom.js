@@ -144,11 +144,13 @@ const startGameModal = () => {
     // Starts the game on submit
     form.addEventListener('submit', (e) => {
         e.preventDefault();
+        const body = document.querySelector('body');
         const nameInput = document.querySelector('.modal-name-input');
         const name = document.querySelector('.board-one-title');
         const modal = document.querySelector('.modal');
         const newGame = gameLoop(nameInput.value, ships);
 
+        body.classList.remove('modal-open');
         modal.classList.add('display-none');
         name.innerText = nameInput.value;
 
@@ -164,10 +166,12 @@ const startGameModal = () => {
 };
 
 const gameOver = (currentPlayer) => {
+    const body = document.querySelector('body');
     const modal = document.querySelector('.modal');
     const modalTitle = document.querySelector('.modal-title');
     const outCome = document.querySelector('.modal-outcome');
 
+    body.classList.add('modal-open');
     outCome.innerText = `You ${currentPlayer.name ? 'Won' : 'Lost'}!`;
     outCome.classList.remove('display-none');
     modalTitle.innerText = 'Rearrange your ships and play again!';

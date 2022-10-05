@@ -9,10 +9,10 @@ const gameLoop = (name = null, shipArr = null) => {
     showPlayerShips(currentPlayer.playerShips);
 
     const gameOver = () => {
-        currentPlayer = currentPlayer.name ? player(`${currentPlayer.name}`) : player(`${currentEnemy.name}`);
-        currentEnemy = player();
+        const modal = document.querySelector('.modal');
+        modal.classList.remove('display-none');
+
         buildBoards();
-        showPlayerShips(currentPlayer.playerShips);
     };
 
     const updatePlayer = () => {

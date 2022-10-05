@@ -36,6 +36,7 @@ const boardController = (gameloop) => {
     const boardTwo = document.querySelector('.board-two');
 
     boardTwo.addEventListener('click', (e) => {
+        if (!e.target.dataset.coords) return;
         const coords = e.target.dataset.coords.split(',').map(Number);
         gameloop.takeTurn(coords);
     });
@@ -91,6 +92,37 @@ const showPlayerShips = (playerShips) => {
     });
 };
 
+const rotateShip = (ship) => {
+    const newShip = [];
+    let cantRotate = false;
+
+    if (ship.length < 2) return ship;
+
+    // If ship is horizontal rotate vertical
+    if (ship[0][0] === ship[1][0]) {
+        ship.forEach((coord, index) => {
+            const x = coord[0] - index;
+            const y = coord[1] - index;
+            if (x < 0 || x > 9 || y < 0 || y > 9) cantRotate = true;
+            newShip.push([x, y]);
+        });
+    }
+
+    // If ship is vertical rotate horizontal
+    if (ship[0][0] !== ship[1][0]) {
+        ship.forEach((coord, index) => {
+            const x = coord[0] + index;
+            const y = coord[1] + index;
+            if (x < 0 || x > 9 || y < 0 || y > 9) cantRotate = true;
+            newShip.push([x, y]);
+        });
+    }
+
+    if (cantRotate) return ship;
+
+    return newShip;
+};
+
 const buildModalBoard = (board, ships) => {
     // Builds the board cells
     for (let i = 9; i >= 0; i--) {
@@ -105,7 +137,7 @@ const buildModalBoard = (board, ships) => {
     }
 
     // Places the ships on the board
-    ships.forEach((ship) => {
+    ships.forEach((ship, index) => {
         const coords = ship[0];
 
         let isVert = false;
@@ -120,10 +152,7 @@ const buildModalBoard = (board, ships) => {
                 const div = document.createElement('div');
                 div.classList.add('modal-board-ship');
                 div.classList.add(`${rotation}-${ship.length}`);
-
-                div.addEventListener('click', () => {
-                    console.log(ship);
-                });
+                div.setAttribute('data-index', index);
 
                 node.append(div);
                 break;
@@ -160,6 +189,39 @@ const startGameModal = () => {
         ships = randomShips();
         board.textContent = '';
         buildModalBoard(board, ships);
+    });
+
+    // Adds ability to rotate ships on board
+    const boardShips = document.querySelectorAll('.modal-board-ship');
+
+    boardShips.forEach((boardShip) => {
+        boardShip.addEventListener('click', (e) => {
+            const ship = ships[e.target.dataset.index];
+            const rotatedShip = rotateShip(ship);
+            const newShips = [...ships];
+
+            // If rotatedShip had coords out of bounds return early
+            if (ship.toString() === rotatedShip.toString()) return;
+
+            // Remove original ship from newShips array
+            newShips.splice(e.target.dataset.index, 1);
+
+            // Test if rotatedShip can fit in array
+            const unique = rotatedShip.every((rotatedCoords) => {
+                return newShips.every((newShip) => {
+                    return newShip.every((newCoords) => {
+                        return rotatedCoords.toString() !== newCoords.toString();
+                    });
+                });
+            });
+
+            if (unique) {
+                // Adds the rotatedShip to the original ships array
+                ships.splice(e.target.dataset.index, 1, rotatedShip);
+                e.target.classList.toggle(`hor-${rotatedShip.length}`);
+                e.target.classList.toggle(`vert-${rotatedShip.length}`);
+            }
+        });
     });
 };
 

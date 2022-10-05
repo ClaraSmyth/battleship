@@ -10,6 +10,11 @@ const gameLoop = (name = null, shipArr = null) => {
 
     const gameOver = () => {
         const modal = document.querySelector('.modal');
+        const modalTitle = document.querySelector('.modal-title');
+        const outCome = document.querySelector('.modal-outcome');
+
+        outCome.innerText = `You ${currentPlayer.name ? 'Won' : 'Lost'}!`;
+        modalTitle.innerText = 'Rearrange your ships and play again!';
         modal.classList.remove('display-none');
 
         buildBoards();

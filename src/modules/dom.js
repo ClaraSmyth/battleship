@@ -3,11 +3,12 @@ import gameLoop from './gameloop';
 import randomShips from './randomShips';
 
 const buildBoards = () => {
-    const boardOne = document.querySelector('.board-one');
-    const boardTwo = document.querySelector('.board-two');
+    const [boardOneContainer, boardTwoContainer] = document.querySelectorAll('.board-container');
+    const boardOne = document.createElement('div');
+    const boardTwo = document.createElement('div');
 
-    boardOne.textContent = '';
-    boardTwo.textContent = '';
+    boardOne.classList.add('board-one');
+    boardTwo.classList.add('board-two');
 
     for (let i = 9; i >= 0; i--) {
         for (let j = 0; j <= 9; j++) {
@@ -24,6 +25,11 @@ const buildBoards = () => {
             boardTwo.append(div2);
         }
     }
+
+    boardOneContainer.removeChild(boardOneContainer.lastChild);
+    boardTwoContainer.removeChild(boardTwoContainer.lastChild);
+    boardOneContainer.append(boardOne);
+    boardTwoContainer.append(boardTwo);
 };
 
 const boardController = (gameloop) => {
@@ -141,11 +147,11 @@ const startGameModal = () => {
         const nameInput = document.querySelector('.modal-name-input');
         const name = document.querySelector('.board-one-title');
         const modal = document.querySelector('.modal');
+        const newGame = gameLoop(nameInput.value, ships);
 
         modal.classList.add('display-none');
-
         name.innerText = nameInput.value;
-        const newGame = gameLoop(nameInput.value, ships);
+
         boardController(newGame);
     });
 

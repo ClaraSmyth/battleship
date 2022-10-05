@@ -25,6 +25,25 @@
     --clr-ship-friendly: hsl(120 72% 44% / 1);
 }
 
+/* Custom scrollbar for webkit browsers */
+::-webkit-scrollbar {
+    width: 5px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--clr-bg-accent);
+    border-radius: 100vmax;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--clr-btn-primary);
+    border-radius: 100vmax;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--clr-btn-accent);
+}
+
 body {
     display: flex;
     flex-direction: column;
@@ -77,6 +96,8 @@ body {
     max-width: 75rem;
     width: 100%;
     padding: 1rem 0;
+    overflow-y: auto;
+    overflow-y: overlay;
 }
 
 .board-container {

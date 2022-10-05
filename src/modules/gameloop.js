@@ -1,5 +1,5 @@
 // eslint-disable-next-line import/no-cycle
-import { buildBoards, showPlayerShips, updateBoard } from './dom';
+import { gameOver, showPlayerShips, updateBoard } from './dom';
 import player from './player';
 
 const gameLoop = (name = null, shipArr = null) => {
@@ -7,18 +7,6 @@ const gameLoop = (name = null, shipArr = null) => {
     let currentEnemy = player();
 
     showPlayerShips(currentPlayer.playerShips);
-
-    const gameOver = () => {
-        const modal = document.querySelector('.modal');
-        const modalTitle = document.querySelector('.modal-title');
-        const outCome = document.querySelector('.modal-outcome');
-
-        outCome.innerText = `You ${currentPlayer.name ? 'Won' : 'Lost'}!`;
-        modalTitle.innerText = 'Rearrange your ships and play again!';
-        modal.classList.remove('display-none');
-
-        buildBoards();
-    };
 
     const updatePlayer = () => {
         const nextPlayer = currentEnemy;
@@ -35,7 +23,7 @@ const gameLoop = (name = null, shipArr = null) => {
         updateBoard(randomCoords, attack, currentPlayer, currentEnemy);
 
         if (currentEnemy.board.checkWin()) {
-            gameOver();
+            gameOver(currentPlayer);
             return;
         }
 
@@ -56,7 +44,7 @@ const gameLoop = (name = null, shipArr = null) => {
             updateBoard(coords, attack, currentPlayer, currentEnemy);
 
             if (currentEnemy.board.checkWin()) {
-                gameOver();
+                gameOver(currentPlayer);
                 return;
             }
 

@@ -3,6 +3,7 @@ import { gameOver, showPlayerShips, updateBoard } from './dom';
 import player from './player';
 
 const gameLoop = (name = null, shipArr = null) => {
+    let delay = false;
     let currentPlayer = player(name, shipArr);
     let currentEnemy = player();
 
@@ -39,19 +40,27 @@ const gameLoop = (name = null, shipArr = null) => {
             aiNextAttacks.push([attackCoords[0], attackCoords[1] - 1]);
         }
 
-        updateBoard(attackCoords, attack, currentPlayer, currentEnemy);
+        delay = true;
 
-        if (currentEnemy.board.checkWin()) {
-            gameOver(currentPlayer);
-            return;
-        }
+        setTimeout(() => {
+            updateBoard(attackCoords, attack, currentPlayer, currentEnemy);
 
-        if (!attack) updatePlayer();
-        if (attack) aiTurn();
+            if (currentEnemy.board.checkWin()) {
+                gameOver(currentPlayer);
+                return;
+            }
+
+            delay = false;
+
+            if (!attack) updatePlayer();
+            if (attack) aiTurn();
+        }, 250);
     };
 
     return {
         takeTurn(coords) {
+            if (delay) return;
+
             const checkCoords = currentEnemy.board.availableAttacks.some(
                 (elem) => elem.toString() === coords.toString()
             );

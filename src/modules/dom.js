@@ -26,8 +26,11 @@ const buildBoards = () => {
         }
     }
 
-    boardOneContainer.removeChild(boardOneContainer.lastChild);
-    boardTwoContainer.removeChild(boardTwoContainer.lastChild);
+    if (boardOneContainer.childElementCount > 1) {
+        boardOneContainer.removeChild(boardOneContainer.lastChild);
+        boardTwoContainer.removeChild(boardTwoContainer.lastChild);
+    }
+
     boardOneContainer.append(boardOne);
     boardTwoContainer.append(boardTwo);
 };

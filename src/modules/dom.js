@@ -94,7 +94,7 @@ const showPlayerShips = (playerShips) => {
 
 const rotateShip = (ship) => {
     const newShip = [];
-    let cantRotate = false;
+    let outOfBounds = false;
 
     if (ship.length < 2) return ship;
 
@@ -103,7 +103,7 @@ const rotateShip = (ship) => {
         ship.forEach((coord, index) => {
             const x = coord[0] - index;
             const y = coord[1] - index;
-            if (x < 0 || x > 9 || y < 0 || y > 9) cantRotate = true;
+            if (x < 0 || x > 9 || y < 0 || y > 9) outOfBounds = true;
             newShip.push([x, y]);
         });
     }
@@ -113,12 +113,48 @@ const rotateShip = (ship) => {
         ship.forEach((coord, index) => {
             const x = coord[0] + index;
             const y = coord[1] + index;
-            if (x < 0 || x > 9 || y < 0 || y > 9) cantRotate = true;
+            if (x < 0 || x > 9 || y < 0 || y > 9) outOfBounds = true;
             newShip.push([x, y]);
         });
     }
 
-    if (cantRotate) return ship;
+    if (outOfBounds) return ship;
+
+    return newShip;
+};
+
+const moveShip = (ship, newCoords) => {
+    const newShip = [];
+    let outOfBounds = false;
+
+    console.log('NEWCOORDS', newCoords);
+    console.log('TEST', newCoords[0]);
+
+    if (ship.length < 2) newShip.push(newCoords);
+
+    // If ship is horizontal make ship at new coords
+    if (ship[0][0] === ship[1][0]) {
+        ship.forEach((coord, index) => {
+            const x = newCoords[0];
+            const y = newCoords[1] + index;
+            if (x < 0 || x > 9 || y < 0 || y > 9) outOfBounds = true;
+            newShip.push([x, y]);
+        });
+    }
+
+    // If ship is vertical make ship at new coords
+    if (ship[0][0] !== ship[1][0]) {
+        ship.forEach((coord, index) => {
+            const x = newCoords[0] - index;
+            const y = newCoords[1];
+            if (x < 0 || x > 9 || y < 0 || y > 9) outOfBounds = true;
+            newShip.push([x, y]);
+        });
+    }
+
+    if (outOfBounds) return ship;
+
+    console.log(newShip);
 
     return newShip;
 };
@@ -153,6 +189,7 @@ const buildModalBoard = (board, ships) => {
                 div.classList.add('modal-board-ship');
                 div.classList.add(`${rotation}-${ship.length}`);
                 div.setAttribute('data-index', index);
+                div.setAttribute('draggable', 'true');
 
                 node.append(div);
                 break;
@@ -192,6 +229,7 @@ const startGameModal = () => {
     });
 
     // Adds ability to rotate ships on board
+
     const boardShips = document.querySelectorAll('.modal-board-ship');
 
     boardShips.forEach((boardShip) => {
@@ -221,6 +259,51 @@ const startGameModal = () => {
                 e.target.classList.toggle(`hor-${rotatedShip.length}`);
                 e.target.classList.toggle(`vert-${rotatedShip.length}`);
             }
+        });
+
+        // Adds ability to drag ships on board
+
+        const boardCells = document.querySelectorAll('.modal-board-cell');
+
+        boardCells.forEach((cell) => {
+            cell.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                const draggable = document.querySelector('.dragging');
+                const ship = ships[draggable.dataset.index];
+                const movedShip = moveShip(ship, cell.dataset.coords.split(',').map(Number));
+                const newShips = [...ships];
+
+                console.log(movedShip);
+
+                // If rotatedShip had coords out of bounds return early
+                if (ship.toString() === movedShip.toString()) return;
+
+                // Remove original ship from newShips array
+                newShips.splice(draggable.dataset.index, 1);
+
+                // Test if moved Ship can fit in array
+                const unique = movedShip.every((movedCoords) => {
+                    return newShips.every((newShip) => {
+                        return newShip.every((newCoords) => {
+                            return movedCoords.toString() !== newCoords.toString();
+                        });
+                    });
+                });
+
+                if (unique) {
+                    // Adds the movedShip to the original ships array
+                    ships.splice(draggable.dataset.index, 1, movedShip);
+                    cell.append(draggable);
+                }
+            });
+        });
+
+        boardShip.addEventListener('dragstart', () => {
+            boardShip.classList.add('dragging');
+        });
+
+        boardShip.addEventListener('dragend', () => {
+            boardShip.classList.remove('dragging');
         });
     });
 };

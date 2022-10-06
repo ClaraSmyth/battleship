@@ -6,8 +6,8 @@
     --fs-400: 1rem;
     --fs-600: 1.2rem;
     --fs-700: 1.5rem;
-    --fs-800: 2rem;
-    --fs-900: 2.5rem;
+    --fs-800: 1.8rem;
+    --fs-900: 2.2rem;
 
     --fc-primary: hsl(0 0% 0% / 1);
 
@@ -195,6 +195,11 @@ body {
     font-size: var(--fs-800);
 }
 
+.modal-title {
+    text-align: center;
+    font-size: var(--fs-700);
+}
+
 .modal-board {
     display: grid;
     grid-template-columns: repeat(10, 1fr);
@@ -337,10 +342,6 @@ body {
         border-radius: 0;
         box-shadow: none;
         padding: 1rem;
-    }
-
-    .modal-title {
-        text-align: center;
     }
 
     .modal-random {

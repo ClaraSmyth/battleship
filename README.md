@@ -5,9 +5,10 @@
 		<img src="https://img.shields.io/static/v1?label=&message=SASS&color=CC6699&style=for-the-badge&logo=sass&logoColor=FFF&logoWidth=&labelColor=&link=">
 		<img src="https://img.shields.io/static/v1?label=&message=Javascript&color=F7DF1E&style=for-the-badge&logo=Javascript&logoColor=black&logoWidth=&labelColor=&link=">
 		<img src="https://img.shields.io/static/v1?label=&message=Webpack&color=8DD6F9&style=for-the-badge&logo=webpack&logoColor=black&logoWidth=&labelColor=&link=">
+		<img src="https://img.shields.io/static/v1?label=&message=JEST&color=C21325&style=for-the-badge&logo=JEST&logoColor=&logoWidth=&labelColor=&link=">
 		<br>
 	</h1>
-	<h3><b><a href="">View Live Demo</a></b></h3>
+	<h3><b><a href="https://clarasmyth.github.io/battleship/">View Live Demo</a></b></h3>
 </div>
 
 ![Gif of Project]()
@@ -24,17 +25,23 @@ To see the assignment details - [Click Here](https://www.theodinproject.com/less
 -   SASS <img src="./readme-assets/sass.svg">
 -   JavaScript <img src="./readme-assets/javascript.svg">
 -   Webpack <img src="./readme-assets/webpack.svg">
+-   Jest <img src="./readme-assets/jest.svg">
 
 #### Other tools used
 
 -   ESLint <img src="./readme-assets/eslint.svg">
 -   Prettier <img src="./readme-assets/prettier.svg">
+-   Babel <img src="./readme-assets/babel.svg">
 
 ## Credits
 
 #### Icons
 
 -   [Simple Icons](https://simpleicons.org/)
+
+#### Favicon
+
+-   [favicon.io](https://favicon.io/)
 
 ## Gallery
 

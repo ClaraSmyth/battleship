@@ -38,6 +38,7 @@ To see the assignment details - [Click Here](https://www.theodinproject.com/less
 #### Icons
 
 -   [Simple Icons](https://simpleicons.org/)
+-   [Google Material Icons](https://fonts.google.com/icons)
 
 #### Favicon
 
@@ -47,4 +48,12 @@ To see the assignment details - [Click Here](https://www.theodinproject.com/less
 
 ### Desktop
 
-#### Home Page
+![Image of Project](./readme-assets/Images/desktop-modal.png)
+
+![Image of Project](./readme-assets/Images/desktop-game.png)
+
+![Image of Project](./readme-assets/Images/desktop-midgame.png)
+
+### Mobile
+
+![Image of Project](./readme-assets/Images/mobile.png)

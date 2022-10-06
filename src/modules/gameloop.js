@@ -20,22 +20,23 @@ const gameLoop = (name = null, shipArr = null) => {
         const randomIndex = Math.floor(Math.random() * currentEnemy.board.availableAttacks.length);
         const randomCoords = currentEnemy.board.availableAttacks[randomIndex];
         const attackCoords = aiNextAttacks.length > 0 ? aiNextAttacks.shift() : randomCoords;
+
+        const checkCoords = currentEnemy.board.availableAttacks.some(
+            (elem) => elem.toString() === attackCoords.toString()
+        );
+
+        if (!checkCoords) {
+            aiTurn();
+            return;
+        }
+
         const attack = currentPlayer.attack(currentEnemy.board, attackCoords);
 
         if (attack) {
-            const surrounding = [];
-            surrounding.push([attackCoords[0] + 1, attackCoords[1]]);
-            surrounding.push([attackCoords[0] - 1, attackCoords[1]]);
-            surrounding.push([attackCoords[0], attackCoords[1] + 1]);
-            surrounding.push([attackCoords[0], attackCoords[1] - 1]);
-
-            surrounding.forEach((coords) => {
-                const checkCoords = currentEnemy.board.availableAttacks.some(
-                    (elem) => elem.toString() === coords.toString()
-                );
-
-                if (checkCoords) aiNextAttacks.unshift(coords);
-            });
+            aiNextAttacks.push([attackCoords[0] + 1, attackCoords[1]]);
+            aiNextAttacks.push([attackCoords[0], attackCoords[1] + 1]);
+            aiNextAttacks.push([attackCoords[0] - 1, attackCoords[1]]);
+            aiNextAttacks.push([attackCoords[0], attackCoords[1] - 1]);
         }
 
         updateBoard(attackCoords, attack, currentPlayer, currentEnemy);

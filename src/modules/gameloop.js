@@ -14,13 +14,31 @@ const gameLoop = (name = null, shipArr = null) => {
         currentPlayer = nextPlayer;
     };
 
+    const aiNextAttacks = [];
+
     const aiTurn = () => {
         const randomIndex = Math.floor(Math.random() * currentEnemy.board.availableAttacks.length);
         const randomCoords = currentEnemy.board.availableAttacks[randomIndex];
+        const attackCoords = aiNextAttacks.length > 0 ? aiNextAttacks.shift() : randomCoords;
+        const attack = currentPlayer.attack(currentEnemy.board, attackCoords);
 
-        const attack = currentPlayer.attack(currentEnemy.board, randomCoords);
+        if (attack) {
+            const surrounding = [];
+            surrounding.push([attackCoords[0] + 1, attackCoords[1]]);
+            surrounding.push([attackCoords[0] - 1, attackCoords[1]]);
+            surrounding.push([attackCoords[0], attackCoords[1] + 1]);
+            surrounding.push([attackCoords[0], attackCoords[1] - 1]);
 
-        updateBoard(randomCoords, attack, currentPlayer, currentEnemy);
+            surrounding.forEach((coords) => {
+                const checkCoords = currentEnemy.board.availableAttacks.some(
+                    (elem) => elem.toString() === coords.toString()
+                );
+
+                if (checkCoords) aiNextAttacks.unshift(coords);
+            });
+        }
+
+        updateBoard(attackCoords, attack, currentPlayer, currentEnemy);
 
         if (currentEnemy.board.checkWin()) {
             gameOver(currentPlayer);

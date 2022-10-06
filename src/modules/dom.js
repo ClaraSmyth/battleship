@@ -127,7 +127,7 @@ const moveShip = (ship, newCoords) => {
     const newShip = [];
     let outOfBounds = false;
 
-    if (ship.length < 2) newShip.push(newCoords);
+    if (ship.length < 2) return newCoords;
 
     // If ship is horizontal make ship at new coords
     if (ship[0][0] === ship[1][0]) {
@@ -193,38 +193,8 @@ const buildModalBoard = (board, ships) => {
     });
 };
 
-const startGameModal = () => {
-    const board = document.querySelector('.modal-board');
-    const form = document.querySelector('.modal-form');
-    const randomButton = document.querySelector('.modal-random');
-
-    let ships = randomShips();
-
-    buildModalBoard(board, ships);
-
-    // Starts the game on submit
-    form.addEventListener('submit', (e) => {
-        e.preventDefault();
-        const nameInput = document.querySelector('.modal-name-input');
-        const name = document.querySelector('.board-one-title');
-        const modal = document.querySelector('.modal');
-        const newGame = gameLoop(nameInput.value, ships);
-
-        modal.classList.add('display-none');
-        name.innerText = nameInput.value;
-
-        boardController(newGame);
-    });
-
-    // Randomises the ships on board
-    randomButton.addEventListener('click', () => {
-        ships = randomShips();
-        board.textContent = '';
-        buildModalBoard(board, ships);
-    });
-
+const arrangeShips = (ships) => {
     // Adds ability to rotate ships on board
-
     const boardShips = document.querySelectorAll('.modal-board-ship');
 
     boardShips.forEach((boardShip) => {
@@ -257,7 +227,6 @@ const startGameModal = () => {
         });
 
         // Adds ability to drag ships on board
-
         const boardCells = document.querySelectorAll('.modal-board-cell');
 
         boardCells.forEach((cell) => {
@@ -269,7 +238,7 @@ const startGameModal = () => {
                 const newShips = [...ships];
 
                 // If rotatedShip had coords out of bounds return early
-                if (ship.toString() === movedShip.toString()) return;
+                if (ship.toString() === movedShip.toString() && movedShip.length > 2) return;
 
                 // Remove original ship from newShips array
                 newShips.splice(draggable.dataset.index, 1);
@@ -298,6 +267,39 @@ const startGameModal = () => {
         boardShip.addEventListener('dragend', () => {
             boardShip.classList.remove('dragging');
         });
+    });
+};
+
+const startGameModal = () => {
+    const board = document.querySelector('.modal-board');
+    const form = document.querySelector('.modal-form');
+    const randomButton = document.querySelector('.modal-random');
+
+    let ships = randomShips();
+
+    buildModalBoard(board, ships);
+    arrangeShips(ships);
+
+    // Starts the game on submit
+    form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const nameInput = document.querySelector('.modal-name-input');
+        const name = document.querySelector('.board-one-title');
+        const modal = document.querySelector('.modal');
+        const newGame = gameLoop(nameInput.value, ships);
+
+        modal.classList.add('display-none');
+        name.innerText = nameInput.value;
+
+        boardController(newGame);
+    });
+
+    // Randomises the ships on board
+    randomButton.addEventListener('click', () => {
+        ships = randomShips();
+        board.textContent = '';
+        buildModalBoard(board, ships);
+        arrangeShips(ships);
     });
 };
 

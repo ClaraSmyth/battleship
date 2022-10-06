@@ -127,9 +127,6 @@ const moveShip = (ship, newCoords) => {
     const newShip = [];
     let outOfBounds = false;
 
-    console.log('NEWCOORDS', newCoords);
-    console.log('TEST', newCoords[0]);
-
     if (ship.length < 2) newShip.push(newCoords);
 
     // If ship is horizontal make ship at new coords
@@ -153,8 +150,6 @@ const moveShip = (ship, newCoords) => {
     }
 
     if (outOfBounds) return ship;
-
-    console.log(newShip);
 
     return newShip;
 };
@@ -272,8 +267,6 @@ const startGameModal = () => {
                 const ship = ships[draggable.dataset.index];
                 const movedShip = moveShip(ship, cell.dataset.coords.split(',').map(Number));
                 const newShips = [...ships];
-
-                console.log(movedShip);
 
                 // If rotatedShip had coords out of bounds return early
                 if (ship.toString() === movedShip.toString()) return;

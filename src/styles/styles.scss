@@ -164,6 +164,11 @@ body {
     }
 }
 
+.board-two > .board-cell:hover:not(.hit, .sunk, .miss, .friendly) {
+    background-color: var(--clr-bg-dark);
+    cursor: crosshair;
+}
+
 /////////////////////////////////
 ///       MODAL SECTION
 /////////////////////////////////

@@ -130,7 +130,7 @@ const moveShip = (ship, newCoords) => {
     const newShip = [];
     let outOfBounds = false;
 
-    if (ship.length < 2) return newCoords;
+    if (ship.length < 2) return [newCoords];
 
     // If ship is horizontal make ship at new coords
     if (ship[0][0] === ship[1][0]) {
@@ -202,7 +202,7 @@ const arrangeShips = (ships) => {
 
     boardShips.forEach((boardShip) => {
         boardShip.addEventListener('click', (e) => {
-            const ship = ships[e.target.dataset.index];
+            const ship = ships[boardShip.dataset.index];
             const rotatedShip = rotateShip(ship);
             const newShips = [...ships];
 
@@ -210,7 +210,7 @@ const arrangeShips = (ships) => {
             if (ship.toString() === rotatedShip.toString()) return;
 
             // Remove original ship from newShips array
-            newShips.splice(e.target.dataset.index, 1);
+            newShips.splice(boardShip.dataset.index, 1);
 
             // Test if rotatedShip can fit in array
             const unique = rotatedShip.every((rotatedCoords) => {

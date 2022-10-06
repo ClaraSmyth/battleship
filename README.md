@@ -11,7 +11,7 @@
 	<h3><b><a href="https://clarasmyth.github.io/battleship/">View Live Demo</a></b></h3>
 </div>
 
-![Gif of Project]()
+![Gif of Project](./readme-assets/Images/battleship.gif)
 
 ## Description
 
